@@ -27,7 +27,7 @@ class MenuMain {
         entries.add(new MenuEntry("1. Сформировать бинарное дерево") {
             @Override
             public void run() {
-                System.out.println("Дерево создано.\n");
+                //System.out.println("Дерево создано.\n");
                 TreeMenu menutree = new TreeMenu(tree); //Возможно исключение NPE
                 menutree.run();
             }
@@ -36,14 +36,14 @@ class MenuMain {
         entries.add(new MenuEntry("2. Нарисовать дерево с ключами") {
             @Override
             public void run() {
-                tree.print();
+                tree.print(true);
             }
         });
         
         entries.add(new MenuEntry("3. Нарисовать дерево без ключей") {
             @Override
             public void run() {
-                tree.print();
+                tree.print(false);
             }
         });
         // Добавляем пункт меню Exit

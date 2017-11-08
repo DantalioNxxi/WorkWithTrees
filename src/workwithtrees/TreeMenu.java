@@ -42,7 +42,7 @@ class TreeMenu {
                     
                     System.out.println("Узел "+kv[0]+":"+kv[1]+"\n");
                     tree.add(kv[0], kv[1]);
-                    tree.print();
+                    tree.print(true);
 //                    isr2.close();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -67,7 +67,7 @@ class TreeMenu {
                     
                     System.out.println("Узел "+kv[0]+":"+kv[1]+"\n");
                     tree.set(kv[0], kv[1]);
-                    tree.print();
+                    tree.print(true);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -85,7 +85,7 @@ class TreeMenu {
                     int k = Integer.parseInt(x);
                     
                     tree.remove(k);
-                    tree.print();
+                    tree.print(true);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -96,7 +96,7 @@ class TreeMenu {
             @Override
             public void run() {
                 System.out.println("4 tree run...\n");
-                tree.print();
+                tree.print(true);
             }
         });
         
@@ -104,7 +104,7 @@ class TreeMenu {
             @Override
             public void run() {
                 System.out.println("5 tree run...\n");
-                tree.print();
+                tree.print(false);
             }
         });
         // Добавляем пункт меню Exit

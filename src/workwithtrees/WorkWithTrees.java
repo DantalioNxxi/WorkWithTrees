@@ -19,6 +19,39 @@ public class WorkWithTrees {
         MenuMain menu = new MenuMain();
         menu.run();
 
+//    BinaryTree tree = new BinaryTree();
+//        tree.add(50, 1);
+////        System.out.println(tree.get(50));
+//        tree.add(50, 5);
+////        System.out.println(tree.get(50));
+//        tree.add(30, 1);
+//        tree.add(20, 2);
+//        tree.add(60, 5);
+//        tree.add(34, 5);
+//        tree.add(35, 5);
+//        tree.add(55, 5);
+//        tree.add(66, 5);
+//        tree.add(70, 5);
+//        tree.add(78, 5);
+//        tree.add(79, 5);
+////        System.out.println("Глубина дерева: "+tree.depth());
+////        tree.print();
+////        tree.remove(2);
+////        tree.remove(3);
+////        tree.print();
+////        tree.remove(4);
+////        tree.print();
+////        tree.remove(7); // Ошибка не вызывается
+////        System.out.println(tree.depth());
+////        System.out.println(tree.depth(tree.getNode(4)));
+////        tree.print(tree.getNode(3));
+//        //System.out.println(tree.root.key + " " + tree.root.value);
+//        tree.set(55, 6);
+////        tree.remove(79);
+//        tree.print(false);
+//        tree.print(true);
+////        tree.set(71, 700);
+
     }
 }
 
