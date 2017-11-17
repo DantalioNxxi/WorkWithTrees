@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package workwithtrees;
 
 import java.io.BufferedReader;
@@ -12,103 +8,233 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Пользователь
+ * The class of the Menu for work with Binary Tree.
+ * Object is created and launched by method run() of the MenuMain.
+ * An one menu entry added into array of entries by anonymous class,
+ * which implements an abstract class MenuEntry.
+ * @author DantalioNxxi
+ * @version 1.3
+ * @since 1.0
+ * @see MenuMain
+ * @see BinaryTree
+ * @see MenuEntry
  */
 class TreeMenu {
-    //Массив пунктов меню
+    /**An array of the entries for the TreeMenu*/
     private List <MenuEntry> entries = new ArrayList<MenuEntry>();
+    /**If true, then running of the menu will be stoped*/
     private boolean isExit = false;
+    
+    /**
+     * Splits a string of digits, which entered by the user
+     * and return an array of digits.
+     * @param x string of digits, which entered by the user
+     * @return array of digits entered by the user
+     */
+    private static int[] splitter(String x) {
+        String[] str = x.split(" ");
+        int[] arr = new int[str.length];
 
+        for (int i = 0; i < str.length; i++) {
+            arr[i] = Integer.parseInt(str[i]);
+        }
+        
+        return arr;
+    }
+
+    /**
+     * Constructor of the Tree Menu.
+     * Added menu entries into array of the entries and describes their
+     * by the anonymous classes, which implements an abstract class MenuEntry.
+     * @param tree is tree, with user will be worked and changed.
+     * @see MenuEntry
+     */
     public TreeMenu(BinaryTree tree) {
         entries.add(new MenuEntry("1. Добавить узел") {
             @Override
             public void run() {
-//                System.out.println("1 tree run...\n");
-                System.out.println("Введите ключ и значение узла через пробел:\n");
-//                InputStreamReader isr2 = new InputStreamReader(System.in);
-                try {
-                    BufferedReader readernode = new BufferedReader(new InputStreamReader(System.in));
-                    String x = readernode.readLine();
-                    
-//                    readernode.close(); // Ошибка stream.close!
-
-                    String[] str = x.split(" ");
-                    int[] kv = new int[str.length];
-
-                    for (int i = 0; i < str.length; i++) {
-                        kv[i] = Integer.parseInt(str[i]);
+                while(true){
+                    try {
+                        System.out.println("Введите ключ и значение узла через пробел: ");
+                        BufferedReader readernode = new BufferedReader(new InputStreamReader(System.in));
+                        String x = readernode.readLine();
+                        
+                        int[] kv = splitter(x);
+                        if (kv.length>2){
+                            throw new ArrayIndexOutOfBoundsException();
+                        }
+                        
+                        tree.add(kv[0], kv[1]);
+                        tree.printOnlyKeys();
+                        break;
                     }
-                    
-                    System.out.println("Узел "+kv[0]+":"+kv[1]+"\n");
-                    tree.add(kv[0], kv[1]);
-                    tree.print(true);
-//                    isr2.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        
-        entries.add(new MenuEntry("2. Изменить узел") {
-            @Override
-            public void run() {
-                System.out.println("Введите ключ и новое значение узла через пробел:\n");
-                try {
-                    BufferedReader readernode = new BufferedReader(new InputStreamReader(System.in));
-                    String x = readernode.readLine();
-
-                    String[] str = x.split(" ");
-                    int[] kv = new int[str.length];
-
-                    for (int i = 0; i < str.length; i++) {
-                        kv[i] = Integer.parseInt(str[i]);
+                    catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
+                        System.out.println("Ошибка! Вызвано исключение: "+ex.toString()+
+                                "\nПопробуйте ввести данные снова.\n");
                     }
-                    
-                    System.out.println("Узел "+kv[0]+":"+kv[1]+"\n");
-                    tree.set(kv[0], kv[1]);
-                    tree.print(true);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    catch (IOException ex){
+                        System.out.println("Фатальная ошибка во вводе данных!\n");
+                        ex.printStackTrace();
+                        break;
+                    }
                 }
             }
         });
         
-        entries.add(new MenuEntry("3. Удалить узел") {
+        entries.add(new MenuEntry("2. Добавить узел к определённому узлу") {
             @Override
             public void run() {
-                System.out.println("Введите ключ узла:\n");
-                try {
-                    BufferedReader readernode = new BufferedReader(new InputStreamReader(System.in));
-                    String x = readernode.readLine();
-                    
-                    int k = Integer.parseInt(x);
-                    
-                    tree.remove(k);
-                    tree.print(true);
-                } catch (IOException e) {
-                    e.printStackTrace();
+                while(true){
+                    try {
+                        System.out.println("Введите ключ родителя, ключ и значение узла потомка через пробел: ");
+                        BufferedReader readernode = new BufferedReader(new InputStreamReader(System.in));
+                        String x = readernode.readLine();
+                        
+                        int[] kkv = splitter(x);
+                        if (kkv.length>3){
+                            throw new ArrayIndexOutOfBoundsException();
+                        }
+                        
+                        tree.addChild(kkv[0], kkv[1], kkv[2]);
+                        tree.printOnlyKeys();
+                        break;
+                    }
+                    catch (NumberFormatException | ArrayIndexOutOfBoundsException ex){
+                        System.out.println("Ошибка! Вызвано исключение: "+ex.toString()+
+                                "\nПопробуйте ввести данные снова.\n");
+                    }
+                    catch (IllegalArgumentException ex) { // - NFE up, because he extends IAE
+                        System.out.println(ex.toString());
+                        break;
+                    }
+                    catch (IOException ex){
+                        System.out.println("Фатальная ошибка во вводе данных!\n");
+                        ex.printStackTrace();
+                        break;
+                    }
                 }
             }
         });
         
-        entries.add(new MenuEntry("4. Нарисовать дерево с ключами") {
+        entries.add(new MenuEntry("3. Добавить новый корень") {
             @Override
             public void run() {
-                System.out.println("4 tree run...\n");
-                tree.print(true);
+                while(true){
+                    try {
+                        System.out.println("Введите ключ и значение нового корня через пробел: ");
+                        BufferedReader readernode = new BufferedReader(new InputStreamReader(System.in));
+                        String x = readernode.readLine();
+                        
+                        int[] kv = splitter(x);
+                        if (kv.length>2){
+                            throw new ArrayIndexOutOfBoundsException();
+                        }
+                        
+                        tree.addNewRoot(kv[0], kv[1]);
+                        tree.printOnlyKeys();
+                        break;
+                    }
+                    catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
+                        System.out.println("Ошибка! Вызвано исключение: "+ex.toString()+
+                                "\nПопробуйте ввести данные снова.\n");
+                    }
+                    catch (IOException ex){
+                        System.out.println("Фатальная ошибка во вводе данных!\n");
+                        ex.printStackTrace();
+                        break;
+                    }
+                }
             }
         });
         
-        entries.add(new MenuEntry("5. Нарисовать дерево без ключей") {
+        entries.add(new MenuEntry("3. Изменить узел") {
             @Override
             public void run() {
-                System.out.println("5 tree run...\n");
-                tree.print(false);
+                while(true){
+                        System.out.println("Введите ключ и новое значение узла через пробел: ");
+                        try {
+                            BufferedReader readernode = new BufferedReader(new InputStreamReader(System.in));
+                            String x = readernode.readLine();
+
+                            int[] kv = splitter(x);
+                            if (kv.length>2){
+                                throw new ArrayIndexOutOfBoundsException();
+                            }
+                            
+                            tree.set(kv[0], kv[1]);
+                            tree.printInAllVariants(true);
+                            break;
+                        }
+                        catch (NumberFormatException | ArrayIndexOutOfBoundsException ex) {
+                            System.out.println("Ошибка! Вызвано исключение: "+ex.toString()+
+                                    "\nПопробуйте ввести данные снова.\n");
+                        }
+                        catch (IllegalArgumentException ex){
+                            break;
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                            break;
+                        }
+                }
+            }
+        });
+        
+        entries.add(new MenuEntry("4. Удалить узел") {
+            @Override
+            public void run() {
+                while(true){
+                    try {
+                        System.out.println("Введите ключ узла: ");
+                        BufferedReader readernode = new BufferedReader(new InputStreamReader(System.in));
+                        String x = readernode.readLine();
+
+                        int k = Integer.parseInt(x);
+
+                        tree.remove(k);
+                        tree.printOnlyKeys();
+                        break;
+                        }
+                    catch (NumberFormatException ex){
+                        System.out.println("Ошибка! Вызвано исключение: "+ex.toString()+
+                                "\nПопробуйте ввести данные снова.\n");
+                    }
+                    catch (IllegalArgumentException ex){
+                        break;
+                    }
+                    catch (IOException e) {
+                        e.printStackTrace();
+                        break;
+                    }
+                }
+            }
+        });
+        
+        entries.add(new MenuEntry("5. Нарисовать дерево с ключами") {
+            @Override
+            public void run() {
+                if (tree.depth()==0){
+                    System.out.println("Сначала добавьте в дерево узлы!\n");
+                }
+                else{
+                    tree.printInAllVariants(true);
+                }
+            }
+        });
+        
+        entries.add(new MenuEntry("6. Нарисовать дерево без ключей") {
+            @Override
+            public void run() {
+                if (tree.depth()==0){
+                    System.out.println("Сначала добавьте в дерево узлы!\n");
+                }
+                else{
+                    tree.printInAllVariants(false);
+                }
             }
         });
         // Добавляем пункт меню Exit
-        entries.add(new MenuEntry("6. Вернуться в главное меню") {
+        entries.add(new MenuEntry("7. Вернуться в главное меню") {
             @Override
             public void run() {
                 isExit = true;
@@ -117,29 +243,44 @@ class TreeMenu {
         
     }
 
+    /**
+     * Launches the TreeMenu.
+     * @see TreeMenu
+     */
     public void run() {
-        // Бесконечный цикл, пока не нажали кнопку выход
+        // Endless cycle, while button does not push - isExit = true
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while (!isExit) {
             printMenu();
             try {
                 String line = reader.readLine();
                 int choice = Integer.parseInt(line);
-                // Выбираем нажатый пункт меню и выполняем его код
+                // Is launches that menu entrie, which was chosen by the user.
                 MenuEntry entry = entries.get(choice - 1);
                 entry.run();
-            } catch (IOException e) {
+            }
+            catch (NumberFormatException | IndexOutOfBoundsException ex) {
+                System.out.println("Ошибка! Вызвано исключение: "+ex.toString()+"\nНекорректно введён пункт меню!"
+                        + "\nПопробуйте ввести снова.\n");
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
     
+    /**
+     * Prints the Tree Menu.
+     * @see TreeMenu
+     */
     public void printMenu()
         {System.out.println("1. Добавить узел\n" +
-                            "2. Изменить узел\n" +
-                            "3. Удалить узел\n" +
-                            "4. Нарисовать дерево с ключами\n" +
-                            "5. Нарисовать дерево без ключей\n" +
-                            "6. Вернуться в главное меню\n");
+                            "2. Добавить узел к определённому узлу\n" +
+                            "3. Добавить новый корень\n" +
+                            "4. Изменить узел\n" +
+                            "5. Удалить узел\n" +
+                            "6. Нарисовать дерево с ключами\n" +
+                            "7. Нарисовать дерево без ключей\n" +
+                            "8. Вернуться в главное меню\n");
         }
 }

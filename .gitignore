@@ -1,6 +1,7 @@
 ﻿
 #ant specific
 dist/
+!dist/javadoc
 build/
 
 #netbeans specific#

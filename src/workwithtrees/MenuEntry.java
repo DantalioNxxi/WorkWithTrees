@@ -1,22 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package workwithtrees;
 
 /**
- *
- * 
- * Класс Пункта меню
- * @author Пользователь
+ * The abstract class of the menu entry.
+ * @author DantalioNxxi
+ * @version 1.3
+ * @since 1.0
+ * @see MenuMain
+ * @see TreeMenu
  */
 abstract class MenuEntry {
-    private String title; //Для маркировки объектов в коде
+    /**The name is identifies the menu entry into the code.*/
+    private final String title;
 
+    /**
+     * Constructor of the Menu Entry.
+     * @param title identifies the menu entry into the code
+     */
     public MenuEntry(String title) {
         this.title = title;
     }
 
+    /**
+     * Is launches the menu entry.
+     */
     public abstract void run();
 }

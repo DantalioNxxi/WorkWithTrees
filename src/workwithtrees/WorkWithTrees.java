@@ -1,88 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package workwithtrees;
 
 import java.io.IOException;
+
 /**
- *
- * @author Пользователь
+ * The main class for work with any Trees.
+ * @author DantalioNxxi
+ * @version 1.3
+ * @since 1.0
+ * @see MenuMain
+ * @see TreeMenu
+ * @see Tree
+ * @see BinaryTree
  */
 public class WorkWithTrees {
 
     /**
+     * The main method for work with trees.
      * @param args the command line arguments
+     * @throws IOException if will be a critical error at work of the user
      */
     public static void main(String[] args) throws IOException{
+        // Create and launch the Main Menu
         MenuMain menu = new MenuMain();
         menu.run();
-
-//    BinaryTree tree = new BinaryTree();
-//        tree.add(50, 1);
-////        System.out.println(tree.get(50));
-//        tree.add(50, 5);
-////        System.out.println(tree.get(50));
-//        tree.add(30, 1);
-//        tree.add(20, 2);
-//        tree.add(60, 5);
-//        tree.add(34, 5);
-//        tree.add(35, 5);
-//        tree.add(55, 5);
-//        tree.add(66, 5);
-//        tree.add(70, 5);
-//        tree.add(78, 5);
-//        tree.add(79, 5);
-////        System.out.println("Глубина дерева: "+tree.depth());
-////        tree.print();
-////        tree.remove(2);
-////        tree.remove(3);
-////        tree.print();
-////        tree.remove(4);
-////        tree.print();
-////        tree.remove(7); // Ошибка не вызывается
-////        System.out.println(tree.depth());
-////        System.out.println(tree.depth(tree.getNode(4)));
-////        tree.print(tree.getNode(3));
-//        //System.out.println(tree.root.key + " " + tree.root.value);
-//        tree.set(55, 6);
-////        tree.remove(79);
-//        tree.print(false);
-//        tree.print(true);
-////        tree.set(71, 700);
-
     }
 }
 
-   
-//    BinaryTree tree = new BinaryTree();
-//        tree.add(50, 11);
-////        System.out.println(tree.get(50));
-//        tree.add(50, 500);
-////        System.out.println(tree.get(50));
-//        tree.add(30, 1);
-//        tree.add(20, 2);
-//        tree.add(60, 5);
-//        tree.add(34, 5);
-//        tree.add(35, 5);
-//        tree.add(55, 5);
-//        tree.add(66, 5);
-//        tree.add(70, 5);
-//        tree.add(78, 5);
-//        tree.add(79, 5);
-//        System.out.println("Глубина дерева: "+tree.depth());
-//        tree.print();
-////        tree.remove(2);
-////        tree.remove(3);
-////        tree.print();
-////        tree.remove(4);
-////        tree.print();
-////        tree.remove(7); // Ошибка не вызывается
-////        System.out.println(tree.depth());
-////        System.out.println(tree.depth(tree.getNode(4)));
-////        tree.print(tree.getNode(3));
-//        //System.out.println(tree.root.key + " " + tree.root.value);
-//        tree.set(55, 600);
-//        tree.print();
-//        tree.set(71, 700);
