@@ -646,6 +646,24 @@ public class BinaryTree extends Tree {
     }
     
     /**
+     * Is generates a pyramid of the Binary Tree.
+     * Fill his levels by empty line "".
+     * Used by methods printInAllVariants, printOnlyKeys.
+     * @return StringBuilder List pyramid from empty lines by size at depth of the Tree.
+     * @see BinaryTree#printInAllVariants(boolean) 
+     * @see BinaryTree#printOnlyKeys() 
+     */
+    private ArrayList<StringBuilder> generatePyramid(){
+        //Create the pyramid
+        ArrayList<StringBuilder> pyramid = new ArrayList<StringBuilder>();
+        //Initialize the levels of the pyramid
+        for (int i = 0; i < this.depth(); i++) {
+            pyramid.add(i, new StringBuilder(""));
+        }
+        return pyramid;
+    }
+    
+    /**
      * Fills a pyramid from node for the tree.
      * A pyramid contains key and value of the nodes in String type for each level of the Binary Tree.
      * Uses the methods node.toString, BinaryTree.depth
@@ -689,33 +707,30 @@ public class BinaryTree extends Tree {
     }
     
     /**
-     * Prints the nodes by levels.
-     * @param  pyramid which was filled by key and value of the nodes in String type of the Binary Tree
-     * @see BinaryTree#fillPir(workwithtrees.BinaryTree.Node, int, java.util.ArrayList, boolean) 
+     * Fills the pyramid by only keys of Binary Tree.
+     * Used by the method printOnlyKeys()
+     * @param node node of the Binary Tree, from which the pyramid will be filled
+     * @param level of the pyramid, from which the method will fill this pyramid
+     * @param pyramid which will be filled by key of the nodes in String type of the Binary Tree
+     * @see BinaryTree#printOnlyKeys() 
      */
-    private void printLevels(ArrayList<StringBuilder> pyramid){
-        System.out.println("Узлы по уровням:");
-        for (StringBuilder i : pyramid) {
-            System.out.println(i+" ");
-        }
-    }
-    
-    /**
-     * Prints the pyramid of the Binary Tree in the compress form.
-     * Uses the method indention to calculate an indents for the correct display.
-     * @param pyramid which was filled by key and value of the nodes in String type of the Binary Tree.
-     * @param keys if true, then String type of the nodes will contained a key, else only a value.
-     * @see BinaryTree#fillPir(workwithtrees.BinaryTree.Node, int, java.util.ArrayList, boolean)
-     * @see BinaryTree#indention(boolean, int, workwithtrees.BinaryTree.Indent) 
-     */
-    private void printCompressPyr(ArrayList<StringBuilder> pyramid, boolean keys){
-        int s = (keys) ? 2 : 1;
-        System.out.println("\nВ виде сжатой пирамиды:");
-        for (int l = 0; l < this.depth(); l++) {
-            StringBuilder str = indention(keys, s, Indent.COMPRESS);
-            System.out.print(str.toString() + pyramid.get(l).toString()+"\n");
-            s*=2;
-        }
+    private void fillPirOnlyKeys(Node node, int level, ArrayList<StringBuilder> pyramid) {
+            if (node != null) {
+                pyramid.get(level).append(node.key + " ");
+                fillPirOnlyKeys(node.left, level + 1, pyramid);
+                fillPirOnlyKeys(node.right, level + 1, pyramid);
+            } else {
+                if (level < this.depth()) {
+                    String childStr = "-";
+                    pyramid.get(level).append(childStr + " ");
+                    for (int j = level + 1, amountchild = 2; j < this.depth(); j++) {
+                        for (int r = 0; r < amountchild; r++) {
+                            pyramid.get(j).append(childStr + " ");
+                        }
+                        amountchild *= 2;
+                    }
+                }
+            }
     }
     
     /**
@@ -755,6 +770,36 @@ public class BinaryTree extends Tree {
                 break;
         }
         return str;
+    }
+    
+    /**
+     * Prints the nodes by levels.
+     * @param  pyramid which was filled by key and value of the nodes in String type of the Binary Tree
+     * @see BinaryTree#fillPir(workwithtrees.BinaryTree.Node, int, java.util.ArrayList, boolean) 
+     */
+    private void printLevels(ArrayList<StringBuilder> pyramid){
+        System.out.println("Узлы по уровням:");
+        for (StringBuilder i : pyramid) {
+            System.out.println(i+" ");
+        }
+    }
+    
+    /**
+     * Prints the pyramid of the Binary Tree in the compress form.
+     * Uses the method indention to calculate an indents for the correct display.
+     * @param pyramid which was filled by key and value of the nodes in String type of the Binary Tree.
+     * @param keys if true, then String type of the nodes will contained a key, else only a value.
+     * @see BinaryTree#fillPir(workwithtrees.BinaryTree.Node, int, java.util.ArrayList, boolean)
+     * @see BinaryTree#indention(boolean, int, workwithtrees.BinaryTree.Indent) 
+     */
+    private void printCompressPyr(ArrayList<StringBuilder> pyramid, boolean keys){
+        int s = (keys) ? 2 : 1;
+        System.out.println("\nВ виде сжатой пирамиды:");
+        for (int l = 0; l < this.depth(); l++) {
+            StringBuilder str = indention(keys, s, Indent.COMPRESS);
+            System.out.print(str.toString() + pyramid.get(l).toString()+"\n");
+            s*=2;
+        }
     }
     
     /**
@@ -807,11 +852,7 @@ public class BinaryTree extends Tree {
         System.out.println("=======================");
         System.out.println("Глубина дерева: " + (this.depth() - 1) + "\n");
         //Create the pyramid
-        ArrayList<StringBuilder> pyr = new ArrayList<StringBuilder>();
-        //Initialize the levels of the pyramid
-        for (int i = 0; i < this.depth(); i++) {
-            pyr.add(i, new StringBuilder(""));
-        }
+        ArrayList<StringBuilder> pyr = this.generatePyramid();
         //Fill the pyramid
         fillPir(root, 0, pyr, keys);
         //Print nodes without the indents:
@@ -824,33 +865,6 @@ public class BinaryTree extends Tree {
     }
     
     /**
-     * Fills the pyramid by only keys of Binary Tree.
-     * Used by the method printOnlyKeys()
-     * @param node node of the Binary Tree, from which the pyramid will be filled
-     * @param level of the pyramid, from which the method will fill this pyramid
-     * @param pyramid which will be filled by key of the nodes in String type of the Binary Tree
-     * @see BinaryTree#printOnlyKeys() 
-     */
-    private void fillPirOnlyKeys(Node node, int level, ArrayList<StringBuilder> pyramid) {
-            if (node != null) {
-                pyramid.get(level).append(node.key + " ");
-                fillPirOnlyKeys(node.left, level + 1, pyramid);
-                fillPirOnlyKeys(node.right, level + 1, pyramid);
-            } else {
-                if (level < this.depth()) {
-                    String childStr = "-";
-                    pyramid.get(level).append(childStr + " ");
-                    for (int j = level + 1, amountchild = 2; j < this.depth(); j++) {
-                        for (int r = 0; r < amountchild; r++) {
-                            pyramid.get(j).append(childStr + " ");
-                        }
-                        amountchild *= 2;
-                    }
-                }
-            }
-    }
-    
-    /**
      * Prints the Binary Tree with only keys in the compressed form of the pyramid.
      * Uses the method fillPirOnlyKeys()
      * @see BinaryTree#fillPirOnlyKeys(workwithtrees.BinaryTree.Node, int, java.util.ArrayList) 
@@ -859,11 +873,7 @@ public class BinaryTree extends Tree {
         System.out.println("=======================");
         System.out.println("Глубина дерева: " + (this.depth() - 1) + "\n");
         //Create the pyramid
-        ArrayList<StringBuilder> pyr = new ArrayList<StringBuilder>();
-        //Initialize the levels of the pyramid
-        for (int i = 0; i < this.depth(); i++) {
-            pyr.add(i, new StringBuilder(""));
-        }
+        ArrayList<StringBuilder> pyr = this.generatePyramid();
         //Fill pyramid
         fillPirOnlyKeys(root, 0, pyr);
         //Print keys of the tree only:
