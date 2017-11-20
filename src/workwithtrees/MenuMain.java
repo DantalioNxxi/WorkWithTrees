@@ -1,4 +1,5 @@
 
+
 package workwithtrees;
 
 import java.io.BufferedReader;
@@ -26,40 +27,51 @@ class MenuMain {
     private boolean isExit = false;
 
     public MenuMain() {
-        /**The Binary Tree, with which will be worked the user.*/
-        BinaryTree tree = new BinaryTree();
+        /**The Binary Trees, with which will be worked the user.*/
+        BinarySearchTree treeBS = new BinarySearchTree();
+        AVLTree treeAVL = new AVLTree();
 
-        entries.add(new MenuEntry("1. Сформировать бинарное дерево") {
+        entries.add(new MenuEntry("1. Сформировать бинарное дерево поиска") {
             @Override
             public void run() {
-                TreeMenu menutree = new TreeMenu(tree);
+//                System.out.println("this entry's name: "+this.getClass().getTypeName());
+                BSTreeMenu menutree = new BSTreeMenu(treeBS);
+                menutree.run();
+            }
+        });
+        
+        entries.add(new MenuEntry("2. Сформировать самобалансирующееся AVL-дерево") {
+            @Override
+            public void run() {
+//                System.out.println("this entry's name: "+this.getClass().getTypeName());
+                AVLTreeMenu menutree = new AVLTreeMenu(treeAVL);
                 menutree.run();
             }
         });
 
-        entries.add(new MenuEntry("2. Нарисовать дерево с ключами") {
-            @Override
-            public void run() {
-                if (tree.depth() == 0) {
-                    System.out.println("Сначала сформируйте дерево!\n");
-                } else {
-                    tree.printInAllVariants(true);
-                }
-            }
-        });
-
-        entries.add(new MenuEntry("3. Нарисовать дерево без ключей") {
-            @Override
-            public void run() {
-                if (tree.depth() == 0) {
-                    System.out.println("Сначала сформируйте дерево!\n");
-                } else {
-                    tree.printInAllVariants(false);
-                }
-            }
-        });
+//        entries.add(new MenuEntry("2. Нарисовать дерево с ключами") {
+//            @Override
+//            public void run() {
+//                if (tree.depth() == 0) {
+//                    System.out.println("Сначала сформируйте дерево!\n");
+//                } else {
+//                    tree.printInAllVariants(true);
+//                }
+//            }
+//        });
+//
+//        entries.add(new MenuEntry("3. Нарисовать дерево без ключей") {
+//            @Override
+//            public void run() {
+//                if (tree.depth() == 0) {
+//                    System.out.println("Сначала сформируйте дерево!\n");
+//                } else {
+//                    tree.printInAllVariants(false);
+//                }
+//            }
+//        });
         //Adds the menu entry Exit
-        entries.add(new MenuEntry("4. Выход") {
+        entries.add(new MenuEntry("3. Выход") {
             @Override
             public void run() {
                 isExit = true;
@@ -98,9 +110,10 @@ class MenuMain {
      * @see MenuMain
      */
     public void printMenu() {
-        System.out.println("1. Сформировать бинарное дерево\n"
-                + "2. Нарисовать дерево с ключами\n"
-                + "3. Нарисовать дерево без ключей\n"
-                + "4. Выход\n");
+        System.out.println("1. Сформировать бинарное дерево поиска\n"
+//                + "2. Нарисовать дерево с ключами\n"
+//                + "3. Нарисовать дерево без ключей\n"
+                  + "2. Сформировать самобалансирующееся AVL-дерево\n"
+                + "3. Выход\n");
     }
 }

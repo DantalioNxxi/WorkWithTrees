@@ -9,9 +9,9 @@ import java.io.IOException;
  * @version 1.3
  * @since 1.0
  * @see MenuMain
- * @see TreeMenu
- * @see Tree
+ * @see BSTreeMenu
  * @see BinaryTree
+ * @see AVLTree
  */
 public class WorkWithTrees {
 
@@ -24,6 +24,7 @@ public class WorkWithTrees {
         // Create and launch the Main Menu
         MenuMain menu = new MenuMain();
         menu.run();
+        
     }
 }
 

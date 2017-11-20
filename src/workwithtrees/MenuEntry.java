@@ -7,7 +7,8 @@ package workwithtrees;
  * @version 1.3
  * @since 1.0
  * @see MenuMain
- * @see TreeMenu
+ * @see BSTreeMenu
+ * @see AVLTreeMenu
  */
 abstract class MenuEntry {
     /**The name is identifies the menu entry into the code.*/
