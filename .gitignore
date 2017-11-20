@@ -1,7 +1,6 @@
 ﻿
 #ant specific
-dist/
-!dist/javadoc
+dist/WorkWithTrees.jar
 build/
 
 #netbeans specific#
