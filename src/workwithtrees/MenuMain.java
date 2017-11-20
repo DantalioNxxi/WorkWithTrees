@@ -49,27 +49,6 @@ class MenuMain {
             }
         });
 
-//        entries.add(new MenuEntry("2. Нарисовать дерево с ключами") {
-//            @Override
-//            public void run() {
-//                if (tree.depth() == 0) {
-//                    System.out.println("Сначала сформируйте дерево!\n");
-//                } else {
-//                    tree.printInAllVariants(true);
-//                }
-//            }
-//        });
-//
-//        entries.add(new MenuEntry("3. Нарисовать дерево без ключей") {
-//            @Override
-//            public void run() {
-//                if (tree.depth() == 0) {
-//                    System.out.println("Сначала сформируйте дерево!\n");
-//                } else {
-//                    tree.printInAllVariants(false);
-//                }
-//            }
-//        });
         //Adds the menu entry Exit
         entries.add(new MenuEntry("3. Выход") {
             @Override
@@ -96,12 +75,15 @@ class MenuMain {
                 MenuEntry entry = entries.get(choice - 1);
                 entry.run();
             } catch (NumberFormatException | IndexOutOfBoundsException ex) {
-                System.out.println("Ошибка! Вызвано исключение: " + ex.toString() + "\nНекорректно введён пункт меню!"
+                System.out.println("Ошибка! Вызвано исключение: " + ex.toString()
+                        + "\nНекорректно введён пункт меню!"
                         + "\nПопробуйте ввести снова.\n");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        try{reader.close();}
+            catch (IOException e) {System.out.println("Не удалось закрыть входной поток!");}
 
     }
 
@@ -117,3 +99,25 @@ class MenuMain {
                 + "3. Выход\n");
     }
 }
+
+//        entries.add(new MenuEntry("2. Нарисовать дерево с ключами") {
+//            @Override
+//            public void run() {
+//                if (tree.depth() == 0) {
+//                    System.out.println("Сначала сформируйте дерево!\n");
+//                } else {
+//                    tree.printInAllVariants(true);
+//                }
+//            }
+//        });
+//
+//        entries.add(new MenuEntry("3. Нарисовать дерево без ключей") {
+//            @Override
+//            public void run() {
+//                if (tree.depth() == 0) {
+//                    System.out.println("Сначала сформируйте дерево!\n");
+//                } else {
+//                    tree.printInAllVariants(false);
+//                }
+//            }
+//        });

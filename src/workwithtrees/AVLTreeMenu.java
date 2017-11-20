@@ -157,16 +157,22 @@ public class AVLTreeMenu {
 //                    tree.printInAllVariants(true);
                     tree.printOnlyKeys();
                 }
+                //
+                System.out.println("change and here to true");
+                isExit = true;
             }
         });
         
         // Add an entry menu the Exit
-        ENTRIES.add(new MenuEntry("5. Вернуться в главное меню") {
-            @Override
-            public void run() {
-                isExit = true;
-            }
-        });
+        //Was commented on. Else cycle could not to exit,
+        //because anonimous method was worked only one time
+        //WHY? -> IDN!
+//        ENTRIES.add(new MenuEntry("5. Вернуться в главное меню") {
+//            @Override
+//            public void run() {
+//                isExit = true;
+//            }
+//        });
         
     }
 
@@ -182,13 +188,18 @@ public class AVLTreeMenu {
             try {
                 String line = reader.readLine();
                 int choice = Integer.parseInt(line);
+                //Else cycle could not to exit,
+                //because anonimous method was worked only one time
+                if (choice==5){
+                    break;
+                }
                 // Is launches that menu entrie, which was chosen by the user.
                 MenuEntry entry = ENTRIES.get(choice - 1);
                 entry.run();
-                        
             }
             catch (NumberFormatException | IndexOutOfBoundsException ex) {
-                System.out.println("Ошибка! Вызвано исключение: "+ex.toString()+"\nНекорректно введён пункт меню!"
+                System.out.println("Ошибка! Вызвано исключение: "+ex.toString()
+                        +"\nНекорректно введён пункт меню!"
                         + "\nПопробуйте ввести снова.\n");
             }
             catch (IOException e) {
@@ -196,6 +207,7 @@ public class AVLTreeMenu {
 //                e.printStackTrace();
             }
         }
+//        isExit = false;
     }
     
     /**

@@ -147,7 +147,7 @@ class BSTreeMenu {
             }
         });
         
-        ENTRIES.add(new MenuEntry("3. Изменить узел") {
+        ENTRIES.add(new MenuEntry("4. Изменить узел") {
             @Override
             public void run() {
                 while(true){
@@ -181,7 +181,7 @@ class BSTreeMenu {
             }
         });
         
-        ENTRIES.add(new MenuEntry("4. Удалить узел") {
+        ENTRIES.add(new MenuEntry("5. Удалить узел") {
             @Override
             public void run() {
                 while(true){
@@ -212,7 +212,7 @@ class BSTreeMenu {
             }
         });
         
-        ENTRIES.add(new MenuEntry("5. Нарисовать дерево с ключами") {
+        ENTRIES.add(new MenuEntry("6. Нарисовать дерево с ключами") {
             @Override
             public void run() {
                 if (tree.depth()==0){
@@ -224,7 +224,7 @@ class BSTreeMenu {
             }
         });
         
-        ENTRIES.add(new MenuEntry("6. Нарисовать дерево без ключей") {
+        ENTRIES.add(new MenuEntry("7. Нарисовать дерево без ключей") {
             @Override
             public void run() {
                 if (tree.depth()==0){
@@ -236,12 +236,15 @@ class BSTreeMenu {
             }
         });
         // Add an entry menu the Exit
-        ENTRIES.add(new MenuEntry("7. Вернуться в главное меню") {
-            @Override
-            public void run() {
-                isExit = true;
-            }
-        });
+        //Was commented on. Else cycle could not to exit,
+        //because anonimous method was worked only one time
+        //WHY? -> IDN!
+//        ENTRIES.add(new MenuEntry("8. Вернуться в главное меню") {
+//            @Override
+//            public void run() {
+//                isExit = true;
+//            }
+//        });
         
     }
 
@@ -257,6 +260,11 @@ class BSTreeMenu {
             try {
                 String line = reader.readLine();
                 int choice = Integer.parseInt(line);
+                //Else cycle could not to exit,
+                //because anonimous method was worked only one time
+                if (choice==8){
+                    break;
+                }
                 // Is launches that menu entrie, which was chosen by the user.
                 MenuEntry entry = ENTRIES.get(choice - 1);
                 entry.run();
@@ -269,7 +277,9 @@ class BSTreeMenu {
                 System.out.println("Фатальная ошибка во вводе данных!\n");
 //                e.printStackTrace();
             }
+            
         }
+//            isExit = false;
     }
     
     /**
